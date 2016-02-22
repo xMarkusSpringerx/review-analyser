@@ -2,6 +2,9 @@ var r = require('rethinkdb');
 var request = require('request');
 var cheerio = require('cheerio');
 
+
+var mlearning = require('./lib/mlearning');
+
 r.connect({host: 'localhost', port: 28015}, function (err, conn) {
     // Can't connect to Server
     if (err) throw err;
@@ -35,5 +38,13 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
             });
         }
     }
+
+    var ai = mlearning();
+
+    ai.learn('text', 'rating');
+    ai.learn('text', 'rating');
+    ai.learn('text', 'rating');
+
+    console.log(ai.analyze('text'));
 
 });
