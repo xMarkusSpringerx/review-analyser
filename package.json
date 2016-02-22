@@ -1,0 +1,10 @@
+{
+  "name": "review",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "cheerio" : "latest",
+    "rethinkdb" : "latest",
+    "request" : "latest"
+  }
+}
