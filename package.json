@@ -6,6 +6,7 @@
     "cheerio" : "latest",
     "rethinkdb" : "latest",
     "request" : "latest",
-    "express" : "latest"
+    "express": "latest",
+    "ejs": "^1.0.0"
   }
 }

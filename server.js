@@ -6,10 +6,13 @@ var app = express();
 
 var mlearning = require('./lib/mlearning');
 
-app.use(express.static('public'));
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+
 
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.render('pages/index');
 });
 
 app.listen(1337, function () {
@@ -62,7 +65,7 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
                     console.log(i);
                     i++;
                 });
-                callback();
+                typeof callback === 'function' && callback();
             });
 
         });
