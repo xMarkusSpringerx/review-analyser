@@ -21,7 +21,7 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
     r.tableList().run(connection, function (err, list) {
         if (err) throw err;
         checkTable(list, "movies");
-        checkTable(list, "comments");
+        checkTable(list, "reviews");
     });
 
     function checkTable(list, tablename) {
@@ -33,18 +33,34 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
         } else {
             // For testing:
             // Delete all Entries on startup
-            r.table(tablename).delete().run(conn, function () {
-                console.log('deleted all entries in ', tablename);
-            });
+            //r.table(tablename).delete().run(conn, function () {
+            //    console.log('deleted all entries in ', tablename);
+            //});
         }
     }
 
+    function insertInAI(callback) {
+        r.table('reviews').run(connection, function (err, cursor) {
+            if (err) throw err;
+            cursor.toArray(function (err, result) {
+                if (err) throw err;
+                var i = 1;
+                result.forEach(function (review) {
+                    ai.learn(review.text, review.rating);
+                    console.log(i);
+                    i++;
+                });
+                callback();
+            });
+
+        });
+    }
+
+
     var ai = mlearning();
+    insertInAI(function(){
+        console.log(ai.analyze("My personal favorite of the shorts shown for Experimental Week, but my professor looked at me like I was off my rocker when I said this was about American consumer culture; to me it couldn`t be about anything but consumer culture. The snow at the end (that`s another thing, he swears it`s ash) is a nice touch."));
+    });
 
-    ai.learn('text', 'rating');
-    ai.learn('text', 'rating');
-    ai.learn('text', 'rating');
-
-    console.log(ai.analyze('text'));
 
 });
