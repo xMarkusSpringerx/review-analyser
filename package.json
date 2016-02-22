@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "cheerio" : "latest",
-    "rethinkdb" : "latest",
-    "request" : "latest",
+    "body-parser": "^1.15.0",
+    "cheerio": "latest",
+    "ejs": "^1.0.0",
     "express": "latest",
-    "ejs": "^1.0.0"
+    "request": "latest",
+    "rethinkdb": "latest",
+    "uglify-js": "^2.6.1"
   }
 }

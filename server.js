@@ -2,22 +2,46 @@ var r = require('rethinkdb');
 var request = require('request');
 var cheerio = require('cheerio');
 var express = require('express');
+var bodyParser = require("body-parser");
+var urlencodedParser = bodyParser.urlencoded({
+    extended: true
+});
+
 var app = express();
 
 var mlearning = require('./lib/mlearning');
 
+
+/* INIT */
+var ai = mlearning();
+
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-
-
-app.get('/', function (req, res) {
-    res.render('pages/index');
-});
+app.use(express.static(__dirname + '/public'));
 
 app.listen(1337, function () {
     console.log('Server listening on Port 1337!');
 });
+
+
+/* END INIT */
+
+/* ROUTING */
+app.get('/', function (req, res) {
+    res.render('pages/index');
+});
+
+
+app.post('/getrating', urlencodedParser, function (req, res) {
+    var text = req.body.text;
+
+    console.log(text);
+
+    res.send(ai.analyze(text));
+});
+
+/* END ROUTING */
 
 
 r.connect({host: 'localhost', port: 28015}, function (err, conn) {
@@ -67,12 +91,14 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
                 });
                 typeof callback === 'function' && callback();
             });
-
         });
     }
 
 
-    var ai = mlearning();
-    insertInAI();
+    insertInAI(function () {
+
+        console.log(ai.analyze("My personal favorite of the shorts shown for Experimental Week, but my professor looked at me like I was off my rocker when I said this was about American consumer culture; to me it couldn`t be about anything but consumer culture. The snow at the end (that`s another thing, he swears it`s ash) is a nice touch."));
+
+    });
 
 });
