@@ -1,9 +1,24 @@
 var r = require('rethinkdb');
 var request = require('request');
 var cheerio = require('cheerio');
-
+var express = require('express');
+var app = express();
 
 var mlearning = require('./lib/mlearning');
+
+
+app.get('/', function (req, res) {
+    res.send('Hello World!');
+});
+
+app.listen(1337, function () {
+    console.log('Server listening on Port 1337!');
+});
+
+
+
+
+
 
 r.connect({host: 'localhost', port: 28015}, function (err, conn) {
     // Can't connect to Server
@@ -59,8 +74,7 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
 
     var ai = mlearning();
     insertInAI(function(){
-        console.log(ai.analyze("My personal favorite of the shorts shown for Experimental Week, but my professor looked at me like I was off my rocker when I said this was about American consumer culture; to me it couldn`t be about anything but consumer culture. The snow at the end (that`s another thing, he swears it`s ash) is a nice touch."));
+        console.log(ai.analyze("If you are a fan of 80`s action cinema this has all the cheese ball machismo you can ask for, but with surprisingly endearing characters. It also may not drop any jaws visually but it`s never boring. If not for a third act that completely crumbles under the weight of sentimentality this would be on my list of favorite 80`s action films."));
     });
-
 
 });

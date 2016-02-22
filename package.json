@@ -5,6 +5,7 @@
   "dependencies": {
     "cheerio" : "latest",
     "rethinkdb" : "latest",
-    "request" : "latest"
+    "request" : "latest",
+    "express" : "latest"
   }
 }
