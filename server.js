@@ -6,6 +6,7 @@ var app = express();
 
 var mlearning = require('./lib/mlearning');
 
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
@@ -14,10 +15,6 @@ app.get('/', function (req, res) {
 app.listen(1337, function () {
     console.log('Server listening on Port 1337!');
 });
-
-
-
-
 
 
 r.connect({host: 'localhost', port: 28015}, function (err, conn) {
@@ -73,8 +70,6 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
 
 
     var ai = mlearning();
-    insertInAI(function(){
-        console.log(ai.analyze("If you are a fan of 80`s action cinema this has all the cheese ball machismo you can ask for, but with surprisingly endearing characters. It also may not drop any jaws visually but it`s never boring. If not for a third act that completely crumbles under the weight of sentimentality this would be on my list of favorite 80`s action films."));
-    });
+    insertInAI();
 
 });
