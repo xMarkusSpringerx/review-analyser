@@ -11,7 +11,6 @@ var app = express();
 
 var mlearning = require('./lib/mlearning');
 
-
 /* INIT */
 var ai = mlearning();
 
@@ -32,7 +31,6 @@ app.get('/', function (req, res) {
     res.render('pages/index');
 });
 
-
 app.post('/getrating', urlencodedParser, function (req, res) {
     var text = req.body.text;
 
@@ -42,7 +40,6 @@ app.post('/getrating', urlencodedParser, function (req, res) {
 });
 
 /* END ROUTING */
-
 
 r.connect({host: 'localhost', port: 28015}, function (err, conn) {
     // Can't connect to Server
@@ -96,9 +93,8 @@ r.connect({host: 'localhost', port: 28015}, function (err, conn) {
 
 
     insertInAI(function () {
-
         console.log(ai.analyze("My personal favorite of the shorts shown for Experimental Week, but my professor looked at me like I was off my rocker when I said this was about American consumer culture; to me it couldn`t be about anything but consumer culture. The snow at the end (that`s another thing, he swears it`s ash) is a nice touch."));
-
+        ai.standardWords();
     });
 
 });
